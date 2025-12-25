@@ -1,0 +1,9 @@
+# Ignore Maven build folder
+target/
+
+# Ignore MySQL connector JAR
+lib/mysql-connector-java-*.jar
+
+# Ignore IDE specific files (optional)
+*.iml
+.idea/
