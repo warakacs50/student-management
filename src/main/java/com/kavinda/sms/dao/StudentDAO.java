@@ -66,7 +66,7 @@ public class StudentDAO{
 
     //update student
 
-    public boolean updateStudent(int id , String name , String email , int age ){
+    public boolean updateStudent(String name , String email , int age , int id ){
         String sql = "UPDATE students SET name = ? , email = ? , age = ? WHERE id = ? ";
 
         try(Connection conn = DBConnection.getConnection();

@@ -29,14 +29,14 @@ public class StudentService {
         return  studentDAO.searchID(id);
     }
 
-    public boolean updateStudent(int id , String name , String email , int age){
+    public boolean updateStudent(String name , String email , int age , int id ){
 
         if(age <= 0 || !email.contains("@")){
             System.out.println("Invalid input!");
             return false;
         }
 
-        return studentDAO.updateStudent(id, name, email, age);
+        return studentDAO.updateStudent(name, email, age , id );
     }
 
     public boolean deleteStudent(int id){
