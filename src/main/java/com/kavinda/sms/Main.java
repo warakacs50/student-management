@@ -8,38 +8,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
 
-        StudentService studentService = new StudentService();
-
-       /*
-
-       // add students
-
-        studentService.addStudent(new Student(1, "Kavinda", "kavinda@gmail.com", 21));
-        studentService.addStudent(new Student(2, "Mihira", "mihira@gmail.com", 23));
-        studentService.addStudent(new Student(3, "Nimali", "nimali@gmail.com", 22));
-
-        // to view
-
-        System.out.println("all students : ");
-        System.out.println(studentService.getAllStudents());
-
-        // update student
-
-        studentService.updateStudentName(2, "mihira pamodana");
-        System.out.println("\nAfter updating student with ID 2:");
-        System.out.println(studentService.getAllStudents());
-
-        // delete student
-
-        studentService.deleteStudent(1);
-        System.out.println("\nAfter deleting student with ID 1:");
-        System.out.println(studentService.getAllStudents());
-
-
-        */
 
         //functioning console
-
+        StudentService service = new StudentService();
         Scanner sc = new Scanner(System.in);
         boolean running = true;
 
@@ -49,10 +20,12 @@ public class Main {
             System.out.println("3. Update Student Name");
             System.out.println("4. Delete Student");
             System.out.println("5. Exit ");
+            System.out.println("choose : ");
             System.out.println();
 
 
             int choice = sc.nextInt();
+            sc.nextLine();
 
             switch(choice){
                 case 1:
@@ -75,9 +48,14 @@ public class Main {
                     sc.nextLine();
 
 
-                    studentService.addStudent(new Student(id , name , email , age));
+                    if(service.addStudent(new Student(id , name , email , age))){
 
                     System.out.println("add student successfully");
+                }else{
+                        System.out.println("adding failed");
+                }
+
+
                     System.out.println();
 
                     break;
@@ -85,11 +63,11 @@ public class Main {
                     System.out.println("Student Detals");
                     System.out.println();
 
-                    if(studentService.getAllStudents().isEmpty()){
+                    if(service.getAllStudents().isEmpty()){
                         System.out.println("No student found");
                     }else {
 
-                        for (Student s : studentService.getAllStudents()) {
+                        for (Student s : service.getAllStudents()) {
                             System.out.println(
                                     "ID : " + s.getId() +
                                             " Name : " + s.getName() +
@@ -113,10 +91,24 @@ public class Main {
                     System.out.println("New name : ");
                     String newName = sc.nextLine();
 
+                    System.out.println("New email : ");
+                    String newEmail = sc.nextLine();
 
-                    studentService.updateStudentName(id2 , newName);
+                    System.out.println("Add age : ");
+                    int newAge = sc.nextInt();
+                    sc.nextLine();
 
-                    System.out.println("succefully updated ! ");
+                    if(service.searchID(id2)){
+                        service.updateStudent(id2 , newName , newEmail , newAge);
+                        System.out.println("succefully updated ! ");
+                    }else{
+                        System.out.println("id not found ");
+                    }
+
+
+
+
+
 
                     break;
                 case 4:
@@ -126,9 +118,14 @@ public class Main {
                     sc.nextLine();
 
 
-                    studentService.deleteStudent(id3);
+                    if(service.searchID(id3)){
+                        service.deleteStudent(id3);
+                        System.out.println("Delete successfully");
+                    }else{
+                        System.out.println("delete unsuccessfull");
+                    }
 
-                    System.out.println("Delete successfully");
+
 
                     break;
                 case 5:
@@ -138,15 +135,19 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Invalid choine ! \n");
+                    System.out.println("Invalid choice ! \n");
 
 
             }
+
+            
 
 
 
 
         }
+
+
 
 
     }

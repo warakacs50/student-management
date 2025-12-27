@@ -9,7 +9,14 @@ public class Student {
 
 // constructor to build object using class (blue print)
 
-    public Student(int id , String name , String email , int age){
+    public Student( String name , String email , int age){
+
+        this.name = name;
+        this.email = email;
+        this.age = age;
+    }
+
+    public Student( int id , String name , String email , int age){
 
         this.id = id;
         this.name = name;

@@ -2,37 +2,44 @@ package com.kavinda.sms.service;
 
 import com.kavinda.sms.model.Student;
 import com.kavinda.sms.service.StudentService;
+import com.kavinda.sms.dao.StudentDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
 
-    // declaring a ArrayList
-    private List<Student> students = new ArrayList<>();
+    private final StudentDAO studentDAO = new StudentDAO();
 
-    // add student
-    public void addStudent(Student student){
-        students.add(student);
-    }
+    public boolean addStudent(Student student){
 
-    // view all student
-    public List<Student> getAllStudents(){
-        return students;
-    }
-
-    // update student name by ID
-    public void updateStudentName(int id , String newName){
-
-        for(Student s : students){
-            if(s.getId() == id){
-                s.setName(newName);
-                break;
-            }
+        if(student.getAge() <= 0 || !student.getEmail().contains("@")){
+            System.out.println("invalid student details");
+            return false;
         }
+
+        return studentDAO.addStudent(student);
     }
 
-    // delete student by ID
-    public void deleteStudent(int id){
-        students.removeIf(s -> s.getId() == id);
+    public List<Student> getAllStudents(){
+        return studentDAO.getAllStudents();
+    }
+
+    public boolean searchID(int id){
+        return  studentDAO.searchID(id);
+    }
+
+    public boolean updateStudent(int id , String name , String email , int age){
+
+        if(age <= 0 || !email.contains("@")){
+            System.out.println("Invalid input!");
+            return false;
+        }
+
+        return studentDAO.updateStudent(id, name, email, age);
+    }
+
+    public boolean deleteStudent(int id){
+         return  studentDAO.deleteStudent(id);
     }
 }
